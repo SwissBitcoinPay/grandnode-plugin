@@ -1,0 +1,77 @@
+﻿@{
+    Layout = "_ConfigurePlugin";
+}
+
+@model ConfigurationModel
+@using Payments.SwissBitcoinPay.Models;
+@await Component.InvokeAsync("StoreScope")
+
+<form asp-area="Admin" asp-controller="SwissBitcoinPay" asp-action="Configure" method="post">
+    <div class="cards-group">
+        <div class="card card-default">
+            <div class="card-body">
+                <p>@Loc["Plugins.Payments.SwissBitcoinPay.Instructions"]</p>
+
+                <div style="display:none">
+                    <div class="col-md-3">
+                        <admin-label asp-for="ApiUrl" class="control-label" />
+                    </div>
+                    <div class="col-md-9">
+                        <admin-input asp-for="ApiUrl" />
+                        <span asp-validation-for="ApiUrl"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <admin-label asp-for="ApiKey" class="control-label" />
+                    </div>
+                    <div class="col-md-9">
+                        <admin-input asp-for="ApiKey" />
+                        <span asp-validation-for="ApiKey"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <admin-label asp-for="ApiSecret" class="control-label" />
+                    </div>
+                    <div class="col-md-9">
+                        <admin-input asp-for="ApiSecret" />
+                        <span asp-validation-for="ApiSecret"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <admin-label asp-for="AcceptOnChain" class="control-label" />
+                    </div>
+                    <div class="col-md-9">
+                        <admin-input asp-for="AcceptOnChain" />
+                        <span asp-validation-for="AcceptOnChain"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <admin-label asp-for="AdditionalFee" class="control-label" />
+                    </div>
+                    <div class="col-md-9">
+                        <admin-input asp-for="AdditionalFee" />
+                        <span asp-validation-for="AdditionalFee"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <admin-label asp-for="AdditionalFeePercentage" class="control-label" />
+                    </div>
+                    <div class="col-md-9">
+                        <admin-input asp-for="AdditionalFeePercentage" />
+                        <span asp-validation-for="AdditionalFeePercentage"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-9 offset-md-3">
+                        <button type="submit" name="save" class="btn green">@Loc["Admin.Common.Save"]</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
