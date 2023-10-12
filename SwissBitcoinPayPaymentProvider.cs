@@ -83,11 +83,6 @@ namespace Payments.SwissBitcoinPay
             if (paymentTransaction == null)
                 throw new ArgumentNullException(nameof(paymentTransaction));
 
-            //ensure that at least 5 seconds passed after order is placed
-            //P.S. there's no any particular reason for that. we just do it
-            if ((DateTime.UtcNow - paymentTransaction.CreatedOnUtc).TotalSeconds < 15)
-                return false;
-
             return await Task.FromResult(true);
         }
 

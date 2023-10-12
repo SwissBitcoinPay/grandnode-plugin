@@ -37,7 +37,7 @@ namespace Payments.SwissBitcoinPay.Services
                 var invoice = new SwissBitcoinPayInvoiceModel()
 				{
                     title = paymentData.Description,
-                    description = $"{paymentData.BuyerName} | Order : {paymentData.OrderID} | Store : {paymentData.StoreID.ToString()}",
+                    description = $"{paymentData.BuyerName} | Order : {paymentData.OrderID}",
                     unit = paymentData.CurrencyCode,
 					amount = paymentData.Amount,
                     email = paymentData.BuyerEmail,
@@ -47,7 +47,8 @@ namespace Payments.SwissBitcoinPay.Services
                     delay = 60,
                     onChain = settings.AcceptOnChain,
                     extra = new SwissBitcoinPayExtraModel() {
-                        customNote = $"Order {paymentData.OrderID}"
+                        customNote = $"Order {paymentData.OrderID}",
+                        storeId = paymentData.StoreID
                     }
                 };
 				var invoiceJson = JsonConvert.SerializeObject(invoice, Formatting.None);

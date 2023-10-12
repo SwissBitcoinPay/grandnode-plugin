@@ -19,5 +19,6 @@
     public struct SwissBitcoinPayExtraModel
     {
         public string customNote;
+        public string storeId;
     }
 }

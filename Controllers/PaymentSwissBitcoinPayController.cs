@@ -44,7 +44,7 @@ namespace SwissBitcoinPay.Controllers
                 string Description = jsonData.description;
                 var tblDescription = Description.Split(" | ");
                 string OrderGuid = tblDescription[1].Split(" : ")[1];
-                string StoreID = tblDescription[2].Split(" : ")[1];
+                string StoreID = jsonData.extra.storeId;
 
                 if (String.IsNullOrEmpty(OrderGuid) || String.IsNullOrEmpty(StoreID))
                 {
