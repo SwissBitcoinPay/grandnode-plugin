@@ -2,15 +2,14 @@
 using Grand.Business.Core.Interfaces.Common.Localization;
 using Grand.Business.Core.Interfaces.Common.Security;
 using Grand.Business.Core.Interfaces.Common.Stores;
-using Grand.Business.Core.Utilities.Common.Security;
 using Grand.Domain.Common;
 using Grand.Domain.Customers;
+using Grand.Domain.Permissions;
 using Grand.Infrastructure;
 using Grand.Web.Common.Controllers;
 using Grand.Web.Common.Filters;
 using Grand.Web.Common.Security.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using NUglify.Helpers;
 using Payments.SwissBitcoinPay.Models;
 using System.Linq;
 using System.Threading.Tasks;
@@ -70,13 +69,13 @@ namespace Payments.SwissBitcoinPay.Controllers
 
             //load settings for a chosen store scope
             var storeScope = await GetActiveStore();
-            var swissBitcoinPaySettings = _settingService.LoadSetting<SwissBitcoinPaySettings>(storeScope);
+            var swissBitcoinPaySettings = await _settingService.LoadSetting<SwissBitcoinPaySettings>(storeScope);
 
             var model = new ConfigurationModel
             {
-                ApiUrl = swissBitcoinPaySettings.ApiUrl.IfNullOrWhiteSpace(""),
-                ApiKey = swissBitcoinPaySettings.ApiKey.IfNullOrWhiteSpace(""),
-                ApiSecret = swissBitcoinPaySettings.ApiSecret.IfNullOrWhiteSpace(""),
+                ApiUrl = swissBitcoinPaySettings.ApiUrl ?? "",
+                ApiKey = swissBitcoinPaySettings.ApiKey ?? "",
+                ApiSecret = swissBitcoinPaySettings.ApiSecret ?? "",
                 AdditionalFee = swissBitcoinPaySettings.AdditionalFee,
                 AcceptOnChain = swissBitcoinPaySettings.AcceptOnChain,
                 AdditionalFeePercentage = swissBitcoinPaySettings.AdditionalFeePercentage,
@@ -97,7 +96,7 @@ namespace Payments.SwissBitcoinPay.Controllers
 
             //load settings for a chosen store scope
             var storeScope = await GetActiveStore();
-            var swissBitcoinPaySettings = _settingService.LoadSetting<SwissBitcoinPaySettings>(storeScope);
+            var swissBitcoinPaySettings = await _settingService.LoadSetting<SwissBitcoinPaySettings>(storeScope);
 
             //save settings
             swissBitcoinPaySettings.ApiUrl = model.ApiUrl.Trim();

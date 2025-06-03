@@ -19,6 +19,12 @@ namespace Payments.SwissBitcoinPay
         {
 
         }
+
+        public void Configure(WebApplication application, IWebHostEnvironment webHostEnvironment)
+        {
+
+        }
+
         public bool BeforeConfigure => false;
     }
 

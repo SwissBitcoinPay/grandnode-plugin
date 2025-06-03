@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 	<Import Project="..\..\Build\Grand.Common.props" />
 	<PropertyGroup>
-		<TargetFramework>net6.0</TargetFramework>
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -42,9 +41,6 @@
 			<Private>false</Private>
 		</ProjectReference>
 		<ProjectReference Include="..\..\Business\Grand.Business.Storage\Grand.Business.Storage.csproj">
-			<Private>false</Private>
-		</ProjectReference>
-		<ProjectReference Include="..\..\Business\Grand.Business.System\Grand.Business.System.csproj">
 			<Private>false</Private>
 		</ProjectReference>
 		<ProjectReference Include="..\..\Core\Grand.Domain\Grand.Domain.csproj">

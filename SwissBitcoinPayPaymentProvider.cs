@@ -4,21 +4,15 @@ using Grand.Business.Core.Interfaces.Checkout.Orders;
 using Grand.Business.Core.Interfaces.Checkout.Payments;
 using Grand.Business.Core.Interfaces.Common.Directory;
 using Grand.Business.Core.Interfaces.Common.Localization;
-using Grand.Business.Core.Interfaces.Common.Logging;
 using Grand.Business.Core.Utilities.Checkout;
-using Grand.Domain.Logging;
 using Grand.Domain.Orders;
 using Grand.Domain.Payments;
 using Grand.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Payments.SwissBitcoinPay.Models;
 using Payments.SwissBitcoinPay.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using static MassTransit.ValidationResultExtensions;
 
 namespace Payments.SwissBitcoinPay
 {
@@ -159,7 +153,7 @@ namespace Payments.SwissBitcoinPay
             return Task.CompletedTask;
         }
 
-        public async Task PostRedirectPayment(PaymentTransaction paymentTransaction)
+        public async Task<string> PostRedirectPayment(PaymentTransaction paymentTransaction)
         {
             try
             {
@@ -183,15 +177,17 @@ namespace Payments.SwissBitcoinPay
                     WebHookURL = myStore.Url + "PaymentSwissBitcoinPay/Process"
                 });
 
-                _httpContextAccessor.HttpContext?.Response.Redirect(sUrl);
+               // _httpContextAccessor.HttpContext?.Response.Redirect(sUrl);
+               return sUrl;
             } 
             catch (Exception ex)
             {
-                await _logger.InsertLog(LogLevel.Error, ex.Message);
+                _logger.LogError(ex.Message);
+                return string.Empty;
                 //result.AddError(ex.Message);
             }
 
-           
+
         }
 
         public async Task<RefundPaymentResult> Refund(RefundPaymentRequest refundPaymentRequest)
