@@ -23,7 +23,6 @@ namespace Payments.SwissBitcoinPay.Controllers
     {
         #region Fields
 
-        private readonly IWorkContext _workContext;
         private readonly IStoreService _storeService;
         private readonly ISettingService _settingService;
         private readonly ITranslationService _translationService;
@@ -33,13 +32,11 @@ namespace Payments.SwissBitcoinPay.Controllers
 
         #region Ctor
 
-        public SwissBitcoinPayController(IWorkContext workContext,
-            IStoreService storeService,
+        public SwissBitcoinPayController(IStoreService storeService,
             ISettingService settingService,
             ITranslationService translationService,
             IPermissionService permissionService)
         {
-            _workContext = workContext;
             _storeService = storeService;
             _settingService = settingService;
             _translationService = translationService;
@@ -53,13 +50,11 @@ namespace Payments.SwissBitcoinPay.Controllers
         private async Task<string> GetActiveStore()
         {
             var stores = await _storeService.GetAllStores();
-            if (stores.Count < 2)
+            if (stores.Count > 0)
                 return stores.FirstOrDefault()?.Id;
+            else
+                return string.Empty;
 
-            var storeId = _workContext.CurrentCustomer.GetUserFieldFromEntity<string>(SystemCustomerFieldNames.AdminAreaStoreScopeConfiguration);
-            var store = await _storeService.GetStoreById(storeId);
-
-            return store != null ? store.Id : "";
         }
 
         public async Task<IActionResult> Configure()
