@@ -17,13 +17,13 @@ namespace SwissBitcoinPay.Controllers
     {
         private readonly ISettingService _settingService;
         private readonly IOrderService _orderService;
-        private readonly ILogger _logger;
+        private readonly ILogger<SwissBitcoinPayPaymentProvider> _logger;
         private readonly IPaymentTransactionService _paymentTransactionService;
 
         public PaymentSwissBitcoinPayController(IOrderService orderService,
             ISettingService settingService,
             IPaymentTransactionService? paymentTransactionService,
-            ILogger logger)
+            ILogger<SwissBitcoinPayPaymentProvider> logger)
          {
                     _settingService = settingService;
                     _orderService = orderService;

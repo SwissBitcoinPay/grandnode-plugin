@@ -24,23 +24,23 @@ namespace Payments.SwissBitcoinPay
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IProductService _productService;
         private readonly IServiceProvider _serviceProvider;
-        private readonly IWorkContext _workContext;
-        private readonly ILogger _logger;
+        private readonly IWorkContextAccessor _workContextAccessor;
+        private readonly ILogger<SwissBitcoinPayPaymentProvider> _logger;
 
         public SwissBitcoinPayPaymentProvider(
             IHttpContextAccessor httpContextAccessor,
             ITranslationService translationService,
             IProductService productService,
             IServiceProvider serviceProvider,
-            IWorkContext workContext,
+            IWorkContextAccessor workContextAccessor,
             SwissBitcoinPaySettings swissBitcoinPaySettings,
-            ILogger logger)
+            ILogger<SwissBitcoinPayPaymentProvider> logger)
         {
             _httpContextAccessor = httpContextAccessor;
             _translationService = translationService;
             _productService = productService;
             _serviceProvider = serviceProvider;
-            _workContext = workContext;
+            _workContextAccessor = workContextAccessor;
             _swissBitcoinPaySettings = swissBitcoinPaySettings;
             _logger = logger;
         }
@@ -157,9 +157,9 @@ namespace Payments.SwissBitcoinPay
         {
             try
             {
-                var myStore = _workContext.CurrentStore;
-                var myCustomer = _workContext.CurrentCustomer;
-                var lang = _workContext.WorkingLanguage;
+                var myStore = _workContextAccessor.WorkContext.CurrentStore;
+                var myCustomer = _workContextAccessor.WorkContext.CurrentCustomer;
+                var lang = _workContextAccessor.WorkContext.WorkingLanguage;
                 var langCode = (lang == null) ? "en" : lang.UniqueSeoCode;
 
                 var apiService = new SwissBitcoinPayService();
