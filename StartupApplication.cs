@@ -1,5 +1,6 @@
 ﻿using Grand.Business.Core.Interfaces.Checkout.Payments;
 using Grand.Infrastructure;
+using Grand.Web.Common;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
